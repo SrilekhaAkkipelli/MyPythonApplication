@@ -17,11 +17,12 @@ pipeline {
         }
 
         stage('Test') {
-            steps {
-                echo 'Testing the application'
-                bat 'docker run -d -p 5000:5000 --name test_container my-python-application'
-            }
-        }
+    steps {
+        echo 'Testing the application'
+        bat 'docker rm -f test_container || exit 0'
+        bat 'docker run -d -p 5000:5000 --name test_container my-python-application'
+    }
+}
 
         stage('Deploy') {
             steps {
